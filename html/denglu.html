@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 登录</title>
+	<link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+  	<link id="skin" rel="stylesheet" href="../css/ext-all.css"/>
+  	<style>
+	 * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,input{
+      background: #0d1953;
+      overflow: hidden;
+      color:#fff;
+    }
+    canvas{
+    	position: absolute;
+    	top:0;
+    	left:0;
+    	z-index:2;
+    }
+    .login_wrap{
+    	width:560px;
+    	height: 320px;
+    	position: absolute;
+    	left:50%;
+    	top: 50%;
+    	margin-left: -230px;
+    	margin-top: -160px;
+    	z-index: 3;
+    	color:#fff;
+    }
+    .login_wrap>img{
+    	margin-left: 140px;
+    	margin-bottom: 20px;
+    }
+    .login_wrap input{
+    	float: left;
+    	width: 400px;
+    	height: 30px;
+    	line-height: 30px;
+    	
+    	padding-left: 5px;
+    	border:1px solid #3c498a;
+    	background: #0d1953;
+    }
+    .input_wrap{
+    	width: 500px;
+    	height: 32px;
+    	/*background: pink;*/
+    	margin-bottom: 20px;
+    	margin-left: 50px;
+    }
+	.input_wrap  span{
+		display: block;
+		float: left;
+		width: 21px;
+		height: 30px;
+		/*background: yellow;*/
+		border:1px solid #3c498a;
+		border-right: none 0;
+		padding-left:12px;
+		
+	}
+	.input_wrap .icon{
+		font-size: 10px;
+		width: 9px;
+		height: 12px;
+	}
+	 input:focus {
+      outline: none;
+    }
+    .login_wrap button{
+    	width: 100px;
+    	height: 40px;
+    	text-align: center;
+    	color:#fff;
+    	border:none;
+    	cursor:pointer;
+    }
+    .btn_l{
+    	background: #1f8fb0;
+    	float: left;
+    }
+    .btn_r{
+    	background:#449d44;
+		float: right;
+    }
+  	</style>
+</head>
+<body>
+	<canvas width="1920" height="1000"></canvas>
+	<div class="login_wrap">
+		<img src="../images/back_logo.png" alt="">
+		<form action="">
+			<div class="input_wrap">
+				<span class=><i class="icon icon-user"></i></span>
+				<input type="text" placeholder="用户名" id="loginId">
+			</div>
+			<div class="input_wrap">
+				<span class=><i class="icon icon-lock"></i></span>
+				<input type="password" placeholder="密码" id="password">
+			</div>
+			<div class="input_wrap">
+				<span class=><i class="icon icon-lock"></i></span>
+				<input type="text" placeholder="验证码" style="width:300px;" id="valueCode">
+				<img  id="twocodeImg" src="../images/validatecode.png" alt="" style="width:70px;height:30px;cursor:pointer;margin-left:20px" onclick="changeCode()">
+			</div>
+		</form>
+		<button class="btn_l" id="findPwd" onclick="findPwd()">忘记密码？</button>
+		<button class="btn_r" id="loginBtn" onclick="login()">登录</button>
+	</div>
+	<script src="../lib/jquery-1.8.3.min.js" type="text/javascript"></script>
+	<script src="../js/canvas_dote.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function(){
+        $("#loginId").focus();//用户名输入框获得焦点
+        $(document).keypress(function(e){// 按下回车键，登录页面
+            if(e.keyCode==13){//回车键的code=13
+                login();//调用登录方法
+            }
+        })
+    });
+     // 登录
+    function login(){
+        // 获取输入框的值
+        var loginId=$("#loginId").val(),
+            password=$("#password").val(),
+            valueCode=$("#valueCode").val();
+// 当输入框的值都不为空的时候
+            if(loginId&&password&&valueCode){
+                // 登录按钮变为不可点击状态，文字更改
+                $("#loginId").attr("disabled","true").text("登录中");
+                // ajax绑定数据
+                $.ajax({
+                    async:false,//数据传输方式，同步
+                    url:"/Handler/AdminLoginAndRegHandler.ashx?action=login",
+                    data:{
+                        username:loginId,
+                        password:password//需要发送的数据
+                    },
+                    type:'POST',//.数据发送方式get或者post
+                    dataType:'json'// 数据类型json，xml，text，html等
+                }).done(function(result){//发送正确时返回的数据
+                    if(result.err){//如果数据错误
+                        alert(result.err)
+                    }else if(result.success){//数据正确
+                        location.href="backHome.html";//打开另一个界面
+                    }
+                }).fail(function(){//数据发送失败的时候
+                    alert("错误");
+                }).always(function(){//不管数据是不是发送成功
+                    $("#loginId").attr("disabled","false").text("登录");
+                    //登录按钮都变为可点击状态，text文字改变
+                });
+            }
+    }
+    // 找回密码
+    function findPwd(){
+        alert("未开通");
+    }
+    // 验证码切换
+    function changeCode(){
+        $("#twocodeImg").attr("src",'ValiCodeMaker?' + Math.random());
+        // 点击验证码，图片的路径发生改变
+    }
+
+    </script>
+</body>
+</html>

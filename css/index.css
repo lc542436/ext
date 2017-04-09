@@ -1,0 +1,107 @@
+@charset "utf-8";
+/*公用*/
+*{
+	margin:0;
+	padding:0;
+}
+img{
+	border:none;	
+}
+ul li{
+	list-style:none;
+}
+a{
+	cursor:pointer;
+}
+/*快速链接*/
+.index_body{
+	background:url(../images/index_body_bg.jpg);
+	padding-top:65px;
+	color:#fff;
+	min-width:1100px;
+}
+.quick_links{
+	height:200px;
+	min-width: 1100px;
+	overflow: hidden;
+	padding-bottom: 65px;
+}
+.quick_links ul{
+	list-style: none;
+	
+}
+.quick_links ul li{
+	
+	float: left;
+	background: url(../images/white_opacity_bg.png);
+	margin-left: 4%;
+	width:12%;	
+	text-align: center;
+	line-height: 50px;
+	position: relative;
+	
+}
+.quick_links ul li a{
+	color:#fff;
+	display: block;
+	width: 150px;
+	height: 180px;
+	padding-top: 40px;
+	text-decoration: none;
+}
+.quick_links ul li a:hover{
+	background-color:#27a9e3;
+	transition: all 0.5s ease 0s;
+}
+.quick_links ul li a:hover h1{
+	padding-top: 40px;
+	transition:all 0.5s ease 0s;
+}
+
+
+.quick_links ul li i{
+	font-size: 40px;
+	position: absolute;
+	top:141px;
+	left:50px;
+}
+.quick_links ul li a:hover i{
+	position: absolute;
+	top:30px;
+	left:50px;
+	transition:all 0.5s ease 0s;
+}
+.quick_links ul li h1{
+	font-size: 28px;
+}
+.quick_links ul li p{
+	font-size: 12px;
+	line-height: 30px;
+	display: none;
+	position: absolute;
+	top: 0px;
+	left:10px;
+}
+.quick_links ul li a:hover p{
+	display: block;
+	position: absolute;
+	top: 120px;
+	left:10px;
+	transition:all 0.5s ease 0s;
+}
+.quick_links ul li a:hover h3{
+	display: none;
+}
+.charts_wrap{
+	margin-left:4%;
+	margin-right:4%;
+	background:url(../images/white_opacity_bg.png);
+	padding-top:50px;
+	overflow:hidden;
+}
+.charts_wrap > div{
+	float:left;
+	margin-left:4%;
+	overflow:hidden;
+	margin-bottom:50px;
+}
